@@ -1,39 +1,61 @@
-# Recurrencias
+## ¿Qué es una recurrencia?
+- Una ecuación que define el coste \(T(n)\) de un algoritmo en función de valores \(T\) de instancias más pequeñas.  
+- Se usa para analizar algoritmos recursivos.
 
-## Recurrencias
-- El tiempo de ejecución de algoritmos recursivos se expresa mediante relaciones recursivas.  
-- Una relación de recurrencia define una función en términos de instancias más pequeñas de sí misma (por ejemplo, n!). :contentReference[oaicite:6]{index=6}
+---
 
-## Solución de recurrencias
-- **Suposiciones inteligentes**:  
-  1. Calcular los primeros valores de la recurrencia.  
-  2. Buscar una regularidad.  
-  3. Inventar una forma general.  
-  4. Demostrar por inducción matemática u otro método. :contentReference[oaicite:7]{index=7}  
-- **Ecuación característica**: asumir una solución de la forma \(r^n\) y resolver la ecuación resultante. :contentReference[oaicite:8]{index=8}
+## 7.1. Tipos de recurrencias  
+- **Lineales homogéneas:** \(T(n) = a\,T(n-1) + f(n)\).  
+- **Divide y vencerás:** \(T(n) = a\,T(n/b) + f(n)\).  
+- **No homogéneas:** incluyen términos desplazados o adicionales.
 
-## Ejemplos
+---
 
-### Caso Lineal
+## 7.2. Métodos de solución
+
+### 7.2.1. Sustitución  
+1. Hipotetizar forma de la solución (por ejemplo, \(O(n\log n)\)).  
+2. Demostrar por inducción que la hipótesis se cumple.
+
+### 7.2.2. Expansión (árbol de recurrencias)  
+- Dibujar niveles del árbol de llamadas.  
+- Sumar el coste de cada nivel y contar niveles.  
+- Usar suma de series para obtener la forma asintótica.
+
+### 7.2.3. Teorema maestro  
+Para \(T(n)=a\,T(n/b)+f(n)\):
+- Si \(f(n)=O(n^{\log_b a - \varepsilon})\), entonces \(T(n)=\Theta(n^{\log_b a})\).  
+- Si \(f(n)=\Theta(n^{\log_b a}\log^k n)\), entonces \(T(n)=\Theta(n^{\log_b a}\log^{k+1} n)\).  
+- Si \(f(n)=\Omega(n^{\log_b a + \varepsilon})\) y la regularidad se cumple, \(T(n)=\Theta(f(n))\).
+
+---
+
+## 7.3. Ecuación característica  
+Para recurrencias lineales con coeficientes constantes:
+1. Asumir solución de la forma \(r^n\).  
+2. Sustituir en la ecuación y resolver el polinomio en \(r\).  
+3. Combinar raíces según condiciones iniciales.
+
+*Ejemplo (Fibonacci):*  
 \[
-T(n) = T(n-1) + 1,\quad T(0)=0
-\quad\Longrightarrow\quad
-T(n)=n.
-\] :contentReference[oaicite:9]{index=9}
-
-### Caso Tipo Maestro
-\[
-T(n)=3\,T\bigl(\tfrac n2\bigr) + n,\quad T(0)=0.
+F_n = F_{n-1} + F_{n-2},\quad
+r^2 - r - 1 = 0,\quad
+r = \frac{1\pm\sqrt5}{2}.
 \]
-Valores calculados:
-- \(T(1)=3T(0)+1=1\).  
-- \(T(2)=3T(1)+2=5\).  
-- \(T(4)=3T(2)+4=19\).  
-- \(T(8)=3T(4)+8=65\).  
-- \(T(16)=3T(8)+16=211\).  
-- \(T(32)=3T(16)+32=665\). :contentReference[oaicite:10]{index=10}  
-
-Aplicando el Teorema maestro:  
+Solución:  
 \[
-T(n)=\Theta(n\log n).
+F_n = \frac{\varphi^n - \psi^n}{\sqrt5}.
 \]
+
+---
+
+## 7.4. Ejemplos de soluciones
+
+| Recurrencia                   | Solución asintótica  |
+|-------------------------------|----------------------|
+| \(T(n)=T(n-1)+1\)             | \(\Theta(n)\)        |
+| \(T(n)=T(n/2)+1\)             | \(\Theta(\log n)\)   |
+| \(T(n)=2T(n/2)+n\)            | \(\Theta(n\log n)\)  |
+| \(T(n)=T(n-1)+n\)             | \(\Theta(n^2)\)      |
+
+---
