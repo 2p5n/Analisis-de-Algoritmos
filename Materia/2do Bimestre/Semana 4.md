@@ -8,68 +8,58 @@
 
 **Idea general**  
 - Divide el arreglo en dos mitades recursivamente.  
-- Ordena cada mitad de forma independiente.  
-- Fusiona las dos mitades resultantes en un solo arreglo ordenado. :contentReference[oaicite:0]{index=0}
+- Ordena cada mitad por separado.  
+- Fusiona ambas mitades en un único arreglo ordenado.
 
-**Pseudocódigo (versión recursiva)**  
+**Pseudocódigo (versión recursiva)**
 
 MergeSort(A[1…n]):
-if n > 1 then
-mid ← ⌊n/2⌋
+si n es mayor que 1 entonces
+mid ← tamaño de A dividido entre 2 (entero)
 U ← MergeSort(A[1…mid])
 V ← MergeSort(A[mid+1…n])
-return Merge(U, V)
-else
-return A
+regresar Merge(U, V)
+sino
+regresar A
 
 
-**Fusión de dos listas U y V**  
+**Fusión de dos listas U y V**
 
 Merge(U, V):
-i ← 1; j ← 1; W ← []
-while i ≤ |U| and j ≤ |V| do
-if U[i] ≤ V[j] then
-append U[i] to W; i ← i + 1
-else
-append V[j] to W; j ← j + 1
-append any remaining elements of U or V to W
-return W
+i ← 1
+j ← 1
+W ← lista vacía
+mientras i no supere el tamaño de U y j no supere el tamaño de V hacer
+si U[i] es menor o igual que V[j] entonces
+agregar U[i] al final de W
+incrementar i
+sino
+agregar V[j] al final de W
+incrementar j
+agregar al final de W cualquier elemento restante de U o V
+regresar W
 
-
-**Análisis de complejidad**  
-- Recurrencia:  
-  \[
-    T(n) = 
-      \begin{cases}
-        c_1, & n = 1,\\
-        2\,T(n/2) + c_2\,n, & n > 1.
-      \end{cases}
-  \]  
-- Solución:  
-  \[
-    T(n) \in \Theta(n \log n).
-  \] :contentReference[oaicite:1]{index=1}
 
 **Características**  
-- **Estable**: conserva el orden relativo de elementos iguales.  
-- **Espacio extra**: requiere Θ(n) para la fusión.  
-- **Uso típico**: arreglos muy grandes, entornos donde la estabilidad es crítica.
+- Estable: mantiene el orden relativo de elementos iguales.  
+- Requiere espacio adicional proporcional al tamaño del arreglo, para la fusión.  
+- Muy adecuada para arreglos grandes y cuando la estabilidad es importante.
 
 ---
 
 #### 5.2.2. Ordenación rápida (Quicksort)
 
 **Idea general**  
-- Selecciona un **pivote** (por ejemplo, el último elemento).  
-- **Particiona** el arreglo en dos subarreglos:  
-  - Elementos ≤ pivote (izquierda).  
-  - Elementos > pivote (derecha).  
-- Recursivamente aplica Quicksort a cada subarreglo. :contentReference[oaicite:2]{index=2}
+- Elegir un elemento como pivote (por ejemplo, el último).  
+- Particionar el arreglo en dos partes:  
+  - Elementos hasta el pivote.  
+  - Elementos mayores que el pivote.  
+- Aplicar Quicksort de forma recursiva a cada parte.
 
-**Pseudocódigo (versión Lomuto)**  
+**Pseudocódigo (versión Lomuto)**
 
 QuickSort(A[lo…hi]):
-if lo < hi then
+si lo es menor que hi entonces
 p ← Partition(A, lo, hi)
 QuickSort(A, lo, p − 1)
 QuickSort(A, p + 1, hi)
@@ -77,19 +67,14 @@ QuickSort(A, p + 1, hi)
 Partition(A, lo, hi):
 pivot ← A[hi]
 i ← lo
-for j from lo to hi − 1 do
-if A[j] ≤ pivot then
-swap A[i] and A[j]; i ← i + 1
-swap A[i] and A[hi]
-return i
-
-**Análisis de complejidad**  
-- **Caso promedio**: Θ(n log n)  
-- **Peor caso** (pivote siempre extremo): Θ(n²)  
-- **Mejor caso** (división balanceada): Θ(n log n) :contentReference[oaicite:3]{index=3}
+para j desde lo hasta hi − 1 hacer
+si A[j] es menor o igual que pivot entonces
+intercambiar A[i] con A[j]
+incrementar i
+intercambiar A[i] con A[hi]
+regresar i
 
 **Características**  
-- **In‑place**: requiere espacio extra Θ(log n) para la pila de recursión.  
-- **No estable**: puede cambiar el orden relativo de elementos iguales.  
-- **Rendimiento práctico**: muy rápido en promedio; elegir buenos pivotes (aleatorio o mediano‑de‑tres).
-
+- In‑place: solo requiere espacio extra para la pila de llamadas recursivas.  
+- No es estable: el orden relativo de elementos iguales puede cambiar.  
+- Muy eficiente en la práctica, especialmente si se elige bien el pivote (por ejemplo, al azar o usando la mediana de tres).
