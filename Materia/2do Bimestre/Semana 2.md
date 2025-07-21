@@ -16,15 +16,15 @@
      - Para cada vértice, se almacena la lista de sucesores (arcos salientes).  
      - Ventaja: ahorra espacio en grafos dispersos (\(O(V + E)\)).  
   2. **Matriz de adyacencia**  
-     - Matriz \(M\) de tamaño \(V \times V\) donde  
-       \[
-         M_{i,j} = 
-         \begin{cases}
-           1, & \text{si existe arco }(i,j),\\
-           0, & \text{en caso contrario.}
-         \end{cases}
-       \]
-     - Ventaja: acceso \(O(1)\) para consultar existencia de arco; desventaja: espacio \(O(V^2)\). :contentReference[oaicite:1]{index=1}  
+    Sea \(M\) la matriz de adyacencia de dimensión \(V \times V\), definida como:
+    \[
+      M_{i,j} =
+      \begin{cases}
+        1, & \text{si existe el arco }(i, j),\\
+        0, & \text{en caso contrario}.
+      \end{cases}
+    \]
+     - Ventaja: acceso \(O(1)\) para consultar existencia de arco; desventaja: espacio \(O(V^2)\).  
 
 - **Aplicaciones típicas**  
   - Modelado de **dependencias** (por ejemplo, en tareas con precedencias).  
